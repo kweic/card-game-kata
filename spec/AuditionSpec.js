@@ -9,7 +9,9 @@ describe("Audition JavaScript Tests", function() {
       });
 
       it(`Players are given ${initValues.mana} Mana`, function() {
-        
+        JavaScriptAudition.init();
+        expect(player1.mana == 0).toBe(true);
+        expect(player2.mana == 0).toBe(true);
       });
 
       it(`Player deck contains ${initValues.deck.length} Cards`, function() {
