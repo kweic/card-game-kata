@@ -1,16 +1,18 @@
 describe("Audition JavaScript Tests", function() {
-  const initValues = {health: 30, mana: 0, handSize: 3, deckSize: 20};
+  // const initValues = {health: 30, mana: 0, handSize: 3, deckSize: 20};
 
     describe("GAME INITIALIZATION", function() {
       it(`Players are given ${initValues.health} Health`, function() {
-
+        JavaScriptAudition.init();
+        expect(player1.health == 30).toBe(true);
+        expect(player2.health == 30).toBe(true);
       });
 
       it(`Players are given ${initValues.mana} Mana`, function() {
         
       });
 
-      it(`Player deck contains ${initValues.deckSize} Cards`, function() {
+      it(`Player deck contains ${initValues.deck.length} Cards`, function() {
         
       });
 
@@ -18,7 +20,7 @@ describe("Audition JavaScript Tests", function() {
         
       });
 
-      it(`Player deck contains ${initValues.deckSize - initValues.handSize} Cards after draw`, function() {
+      it(`Player deck contains ${initValues.deck.length - initValues.handSize} Cards after draw`, function() {
         
       });
     });
