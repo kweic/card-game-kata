@@ -15,7 +15,16 @@ describe("Audition JavaScript Tests", function() {
       });
 
       it(`Player deck contains ${initValues.deck.length} Cards`, function() {
-        
+        JavaScriptAudition.init();
+        expect(player1.deck.length == initValues.deck.length).toBe(true);
+        expect(player2.deck.length == initValues.deck.length).toBe(true);
+      });
+
+      it(`Player deck contains the correct card values`, function() {
+        JavaScriptAudition.init();
+        const initialCards = [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8];
+
+        expect(player1.deck.map( function(card){ return card.value } )).toEqual(initialCards);
       });
 
       it(`Players are given ${initValues.handSize} Cards`, function() {
