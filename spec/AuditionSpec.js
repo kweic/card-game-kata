@@ -127,8 +127,13 @@ describe("Audition JavaScript Tests", function() {
 
   describe("Makes Move", function(){
 
+    it('Can only play cards up to mana pool', function(){
+      player1.mana = 1;
+      expect(JavaScriptAudition.actions.canPlaceCard(player1, {value: 2})).toBe(false);
+    });
+
     it('Can only play combination of cards up to mana pool', function(){
-        
+
     });
 
     it('Card played reduces mana pool by card cost', function(){

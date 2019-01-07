@@ -24,8 +24,7 @@ var JavaScriptAudition = {
 
   objects: {
     initialPlayer(health, mana, deck) {
-      var player = {health: health, mana: mana, deck: deck, hand: [], active: false};
-      return player;
+      return {health: health, mana: mana, deck: deck, hand: [], cardsInPlay: [], active: false};
     },
     initialDeckCards() {
       return initValues.deck.map(
@@ -54,6 +53,12 @@ var JavaScriptAudition = {
       if(player.hand.length < initValues.handMaxSize){
         player.hand.push(card);
       }
+    },
+    canPlaceCard(player, card){
+      var currentCost = player.cardsInPlay.length > 0 ? player.cardsInPlay.reduce(function(a,b){return a+b}) : 0;
+      currentCost += card.value;
+      
+      return player.mana >= currentCost;
     }
   },
 
