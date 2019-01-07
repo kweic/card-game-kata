@@ -15,9 +15,10 @@ var JavaScriptAudition = {
     player1 = JavaScriptAudition.objects.initialPlayer(initValues.health, initValues.mana, JavaScriptAudition.objects.initialDeckCards());
     player2 = JavaScriptAudition.objects.initialPlayer(initValues.health, initValues.mana, JavaScriptAudition.objects.initialDeckCards());
   },
+
   objects: {
     initialPlayer(health, mana, deck) {
-      var player = {health: health, mana: mana, deck: deck};
+      var player = {health: health, mana: mana, deck: deck, hand: []};
       return player;
     },
     initialDeckCards() {
@@ -27,6 +28,17 @@ var JavaScriptAudition = {
     },
     card(value) {
       return {value: value}
+    }
+  },
+
+  actions: {
+    initialHandDraw(player){
+      for(var i = 0; i < initValues.handSize; i++){
+        player.hand.push(JavaScriptAudition.actions.drawRandomCard(player1.deck));
+      }
+    },
+    drawRandomCard(deck){
+      return deck.splice(Math.floor(Math.random() * deck.length), 0);
     }
   }
   

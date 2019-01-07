@@ -16,8 +16,8 @@ describe("Audition JavaScript Tests", function() {
 
       it(`Player deck contains ${initValues.deck.length} Cards`, function() {
         JavaScriptAudition.init();
-        expect(player1.deck.length == initValues.deck.length).toBe(true);
-        expect(player2.deck.length == initValues.deck.length).toBe(true);
+        expect(player1.deck.length).toEqual(initValues.deck.length);
+        expect(player1.deck.length).toEqual(initValues.deck.length);
       });
 
       it(`Player deck contains the correct card values`, function() {
@@ -28,7 +28,12 @@ describe("Audition JavaScript Tests", function() {
       });
 
       it(`Players are given ${initValues.handSize} Cards`, function() {
-        
+        JavaScriptAudition.init();
+
+        JavaScriptAudition.actions.initialHandDraw(player1);
+        expect(player1.hand.length).toEqual(3);
+        JavaScriptAudition.actions.initialHandDraw(player2);
+        expect(player2.hand.length).toEqual(3);
       });
 
       it(`Player deck contains ${initValues.deck.length - initValues.handSize} Cards after draw`, function() {
