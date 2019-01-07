@@ -1,44 +1,30 @@
-Instructions
+# Card Game Kata #
 
-All kata requirements do not need to be coded for the kata to be submitted, but requirements implemented should be implemented with best practices. This is a showcase of skill, not speed. 
+* Test driven using Jasmine
+* Implemented requirements 
+    * Player Initialization tests
+        * starting health & mana
+        * deck containing correct cards
+        * starting hand size
+        * deck size reduction after drawing cards
+        * random player chosen to start
+    * Player Action tests
+        * max mana gain
+        * bleeding out if no cards remain in deck
+    * Drawing Cards
+        * deck size is reduced
+        * card is added to player's hand
+        * player turn loss when no card is playable based on mana
+        * card thrown out if already holding 4 cards
+     * Playing Cards
+        * can only play cards up to mana pool available
+        * cards played reduce mana pool
+        * opponent health reduced by card values
+        * opponent loses if no health remains
+        * opponent becomes active after active player plays their hand
 
-The candidate should let us know what kata requirements were implemented when submitting. 
+* additional win checking method.
 
-The candidate should spend two hours (maximum) on each kata. 
+* Player action functions are small to make future graphical or sound effects have a clear location to be placed. (e.g. mana gain, health lost)
 
-All code should be test driven and committed.
-
-Download empty project files:
-javascript_audition.bundle
-(more information about git bundle here: http://git-scm.com/blog/2010/03/10/bundles.html)
-
-The file is a compressed git repository of an empty project that you will be working within. It has a working Jasmine SpecRunner.html that will run your tests.
-
-After the files are downloaded, extract them with git with the following command(s):
-
-> git clone java_audition.bundle -b master [candidates_name]_javascript_audition
-
-for example:
-> git clone javascript_audition.bundle -b master danmonroe_javascript_audition
-
-creates a danmonroe_javascript_audition directory
-
-
-Complete the katas assigned to you.  Commit your changes as you develop.
-
-
-When complete, create a new bundle to send back to us using the following commands:
-> git bundle create [candidates_name]_javascript_audition.bundle master
-
-for example:
-> git bundle create danmonroe_javascript_audition.bundle master
-
-verify:
-> git bundle verify [candidates_name]_javascript_audition.bundle
-
-example:
-> git bundle verify danmonroe_javascript_audition.bundle
-
-Should say: danmonroe_javascript_audition.bundle is okay
-
-Send the completed bundle file via email.
+* Hard coded values are avoided in unit tests so game balancing can be performed without the need to update all related tests.
