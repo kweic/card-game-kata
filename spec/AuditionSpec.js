@@ -169,7 +169,14 @@ describe("Audition JavaScript Tests", function() {
     });
 
     it('Opponent loses if damage dealt is more than health remaining', function(){
+        player1.mana = 10;
+        player1.active = true;
+        player1.cardsInPlay = [{value: 2}, {value: 3}];
+        player2.health = 4;
         
+        JavaScriptAudition.actions.playCards(player1, player2);
+        
+        expect(JavaScriptAudition.ruleChecks.playerLose(player2)).toEqual(true);
     });
 
   })

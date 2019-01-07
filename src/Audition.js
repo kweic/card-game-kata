@@ -89,6 +89,9 @@ var JavaScriptAudition = {
       if(player.hand.filter(function(card){ return card.value <= player.mana}).length == 0){
         player.active = false;
       }
+    },
+    playerLose(player){
+      return player.health <= 0;
     }
   }
   
