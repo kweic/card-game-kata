@@ -39,6 +39,11 @@ describe("Audition JavaScript Tests", function() {
         expect(player1.deck.length).toEqual(initValues.deck.length - initValues.handSize);
         expect(player2.deck.length).toEqual(initValues.deck.length - initValues.handSize);
       });
+
+      it('Only 1 player is chosen to become active on game start', function() {
+        JavaScriptAudition.startGame();
+        expect(player1.active).toEqual(!player2.active);
+      });
     });
 
 
@@ -115,7 +120,7 @@ describe("Audition JavaScript Tests", function() {
         it('previous cards remain in hand', function() {
           JavaScriptAudition.actions.initialHandDraw(player1);
           JavaScriptAudition.actions.drawRandomCard(player1);
-          const currentHand = player1.hand.slice();
+          const currentHand = player1.hand.slice(0);
 
           JavaScriptAudition.actions.drawRandomCard(player1);
           expect(currentHand).toEqual(player1.hand);
@@ -189,13 +194,37 @@ describe("Audition JavaScript Tests", function() {
     it('Opponent does not lose if health remains', function(){
       player1.mana = 10;
       player1.active = true;
-        player1.cardsInPlay = [JavaScriptAudition.objects.card(2), 
+      player1.cardsInPlay = [JavaScriptAudition.objects.card(2), 
                                JavaScriptAudition.objects.card(1)];
       player2.health = 4;
       
       JavaScriptAudition.actions.playCards(player1, player2);
       
       expect(JavaScriptAudition.ruleChecks.playerLose(player2)).toEqual(false);
+    });
+
+    it('Win method is called when opponent health is reduced to 0', function(){
+      var winnerFunction = spyOn(JavaScriptAudition.actions, "winner");
+      player1.mana = 10;
+      player1.active = true;
+      player1.cardsInPlay = [JavaScriptAudition.objects.card(2), 
+                               JavaScriptAudition.objects.card(2)];
+      player2.health = 4;
+      
+      JavaScriptAudition.actions.playCards(player1, player2);
+    
+      expect(winnerFunction).toHaveBeenCalled();
+    });
+
+    it('Opponent becomes active after player plays cards', function(){
+      JavaScriptAudition.actions.startTurn(player1);
+      player1.cardsInPlay = [JavaScriptAudition.objects.card(1)];
+      
+      var opponentStart = spyOn(JavaScriptAudition.actions, "startTurn").and.callThrough();
+      JavaScriptAudition.actions.playCards(player1, player2);
+      expect(opponentStart).toHaveBeenCalledWith(player2);
+      expect(player1.active).toBe(false);
+      expect(player2.active).toBe(true);
     });
 
   })
