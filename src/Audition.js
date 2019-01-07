@@ -55,7 +55,7 @@ var JavaScriptAudition = {
       }
     },
     canPlaceCard(player, card){
-      var currentCost = player.cardsInPlay.length > 0 ? player.cardsInPlay.reduce(function(a,b){return a+b}) : 0;
+      var currentCost = player.cardsInPlay.length > 0 ? player.cardsInPlay.reduce(function(a,b){return a.value + b.value}) : 0;
       currentCost += card.value;
       
       return player.mana >= currentCost;

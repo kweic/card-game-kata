@@ -118,7 +118,7 @@ describe("Audition JavaScript Tests", function() {
           const currentHand = player1.hand.slice();
 
           JavaScriptAudition.actions.drawRandomCard(player1);
-          expect(currentHand).toEqual(player1.hand)
+          expect(currentHand).toEqual(player1.hand);
         });
       });
 
@@ -129,11 +129,13 @@ describe("Audition JavaScript Tests", function() {
 
     it('Can only play cards up to mana pool', function(){
       player1.mana = 1;
-      expect(JavaScriptAudition.actions.canPlaceCard(player1, {value: 2})).toBe(false);
+      expect( JavaScriptAudition.actions.canPlaceCard(player1, {value: 2}) ).toBe(false);
     });
 
     it('Can only play combination of cards up to mana pool', function(){
-
+        player1.mana = 5;
+        player1.cardsInPlay = [{value: 2}, {value: 2}];
+        expect( JavaScriptAudition.actions.canPlaceCard(player1, {value: 2}) ).toBe(false);
     });
 
     it('Card played reduces mana pool by card cost', function(){
