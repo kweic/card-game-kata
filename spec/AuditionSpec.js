@@ -45,11 +45,13 @@ describe("Audition JavaScript Tests", function() {
   describe("PLAYER ACTIONS", function() {
     
     describe("Becomes Active", function() {
-      it('Players gains 1 Mana', function() {
-        
+      it('Player gains 1 Mana', function() {
+        JavaScriptAudition.actions.initialHandDraw(player1);
+        JavaScriptAudition.actions.takeTurn(player1);
+        expect(player1.mana).toEqual(1);
       });
 
-      it('Players does not gain more than 10 Mana', function() {
+      it('Player does not gain more than 10 Mana', function() {
         
       });
 

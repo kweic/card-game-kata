@@ -18,7 +18,7 @@ var JavaScriptAudition = {
 
   objects: {
     initialPlayer(health, mana, deck) {
-      var player = {health: health, mana: mana, deck: deck, hand: []};
+      var player = {health: health, mana: mana, deck: deck, hand: [], active: false};
       return player;
     },
     initialDeckCards() {
@@ -32,6 +32,10 @@ var JavaScriptAudition = {
   },
 
   actions: {
+    takeTurn(player){
+      player.active = true;
+      player.mana++;
+    },
     initialHandDraw(player){
       for(var i = 0; i < initValues.handSize; i++){
         player.hand.push(JavaScriptAudition.actions.drawRandomCard(player.deck));
