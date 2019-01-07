@@ -34,11 +34,11 @@ var JavaScriptAudition = {
   actions: {
     initialHandDraw(player){
       for(var i = 0; i < initValues.handSize; i++){
-        player.hand.push(JavaScriptAudition.actions.drawRandomCard(player1.deck));
+        player.hand.push(JavaScriptAudition.actions.drawRandomCard(player.deck));
       }
     },
     drawRandomCard(deck){
-      return deck.splice(Math.floor(Math.random() * deck.length), 0);
+      return deck.splice(Math.floor(Math.random() * deck.length), 1);
     }
   }
   

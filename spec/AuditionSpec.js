@@ -29,15 +29,20 @@ describe("Audition JavaScript Tests", function() {
 
       it(`Players are given ${initValues.handSize} Cards`, function() {
         JavaScriptAudition.init();
-
         JavaScriptAudition.actions.initialHandDraw(player1);
-        expect(player1.hand.length).toEqual(3);
         JavaScriptAudition.actions.initialHandDraw(player2);
+
+        expect(player1.hand.length).toEqual(3);
         expect(player2.hand.length).toEqual(3);
       });
 
       it(`Player deck contains ${initValues.deck.length - initValues.handSize} Cards after draw`, function() {
-        
+        JavaScriptAudition.init();
+        JavaScriptAudition.actions.initialHandDraw(player1);
+        JavaScriptAudition.actions.initialHandDraw(player2);
+
+        expect(player1.deck.length).toEqual(initValues.deck.length - initValues.handSize);
+        expect(player2.deck.length).toEqual(initValues.deck.length - initValues.handSize);
       });
     });
 
