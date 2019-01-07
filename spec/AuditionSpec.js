@@ -106,14 +106,19 @@ describe("Audition JavaScript Tests", function() {
         it('next drawn card is thrown out', function() {
           JavaScriptAudition.actions.initialHandDraw(player1);
           JavaScriptAudition.actions.drawRandomCard(player1);
+          JavaScriptAudition.actions.drawRandomCard(player1);
+          expect(player1.hand.length).toEqual(initValues.handMaxSize);
+          expect(player1.deck.length).toEqual(initValues.deck.length - (initValues.handSize + 2))
+          
+        });
+
+        it('previous cards remain in hand', function() {
+          JavaScriptAudition.actions.initialHandDraw(player1);
+          JavaScriptAudition.actions.drawRandomCard(player1);
           const currentHand = player1.hand.slice();
 
           JavaScriptAudition.actions.drawRandomCard(player1);
           expect(currentHand).toEqual(player1.hand)
-        });
-
-        it('previous cards remain in hand', function() {
-          
         });
       });
 
