@@ -45,22 +45,28 @@ describe("Audition JavaScript Tests", function() {
   describe("PLAYER ACTIONS", function() {
     
     describe("Becomes Active", function() {
-      it('Player gains 1 Mana', function() {
+      it(`Player gains ${initValues.manaGainPerTurn} Mana`, function() {
         JavaScriptAudition.actions.initialHandDraw(player1);
         JavaScriptAudition.actions.startTurn(player1);
-        expect(player1.mana).toEqual(1);
+
+        expect(player1.mana).toEqual(initValues.manaGainPerTurn);
       });
 
-      it('Player does not gain more than 10 Mana', function() {
+      it(`Player does not gain more than ${initValues.maxMana} Mana`, function() {
         JavaScriptAudition.actions.initialHandDraw(player1);
-        for(var i = 0; i < 15; i++){
+        //attempt to add more than max
+        for(var i = 0; i < initValues.maxMana + 5; i++){
           JavaScriptAudition.actions.startTurn(player1);
         }
-        expect(player1.mana).toEqual(10);
+
+        expect(player1.mana).toEqual(initValues.maxMana);
       });
 
-      it('Player Bleeds Out (1 damage) if no cards remain in deck', function() {
-        
+      it(`Player Bleeds Out (${initValues.bleed} damage) if no cards remain in deck`, function() {
+        JavaScriptAudition.actions.initialHandDraw(player1);
+        player1.deck = [];
+        JavaScriptAudition.actions.startTurn(player1);
+        expect(player1.health).toEqual(initValues.health - 1);
       });
 
     });

@@ -4,8 +4,13 @@ var player1,
   player2;
 
 var initValues = {
-  health: 30, 
+  health: 30,
+  bleed: 1,
+  
   mana: 0,
+  manaGainPerTurn: 1,
+  maxMana: 10,
+
   handSize: 3,
   deck: [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8]
 }
@@ -34,7 +39,12 @@ var JavaScriptAudition = {
   actions: {
     startTurn(player){
       player.active = true;
-      if(player.mana < 10) player.mana++;
+      player.mana += initValues.manaGainPerTurn;
+      if(player.mana > initValues.maxMana){
+        player.mana = initValues.maxMana;
+      }
+
+      if(player.deck.length == 0) player.health -= initValues.bleed;
     },
     initialHandDraw(player){
       for(var i = 0; i < initValues.handSize; i++){
