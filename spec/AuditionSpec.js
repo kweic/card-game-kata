@@ -90,14 +90,14 @@ describe("Audition JavaScript Tests", function() {
 
       it('If no card is less than mana pool, lose turn', function() {
         JavaScriptAudition.actions.startTurn(player1);
-        player1.hand = [{value: 10}]
+        player1.hand = [JavaScriptAudition.objects.card(10)]
         JavaScriptAudition.ruleChecks.hasPlayableCard(player1);
         expect(player1.active).toBe(false);
       });
 
       it('Test hasPlayableCard returns true when player has enough mana', function(){
         JavaScriptAudition.actions.startTurn(player1);
-        player1.hand = [{value: 1}]
+        player1.hand = [JavaScriptAudition.objects.card(1)]
         JavaScriptAudition.ruleChecks.hasPlayableCard(player1);
         expect(player1.active).toBe(true);
       })
@@ -129,19 +129,23 @@ describe("Audition JavaScript Tests", function() {
 
     it('Can only play cards up to mana pool', function(){
       player1.mana = 1;
-      expect( JavaScriptAudition.actions.canPlaceCard(player1, {value: 2}) ).toBe(false);
+      var card = JavaScriptAudition.objects.card(2);
+      expect( JavaScriptAudition.actions.canPlaceCard(player1, card) ).toBe(false);
     });
 
     it('Can only play combination of cards up to mana pool', function(){
         player1.mana = 5;
-        player1.cardsInPlay = [{value: 2}, {value: 2}];
-        expect( JavaScriptAudition.actions.canPlaceCard(player1, {value: 2}) ).toBe(false);
+        player1.cardsInPlay = [JavaScriptAudition.objects.card(2), 
+                               JavaScriptAudition.objects.card(2)];
+        var card = JavaScriptAudition.objects.card(2);
+
+        expect( JavaScriptAudition.actions.canPlaceCard(player1, card) ).toBe(false);
     });
 
     it('Card played reduces mana pool by card cost', function(){
         player1.mana = 10;
         player1.active = true;
-        player1.cardsInPlay = [{value: 2}];
+        player1.cardsInPlay = [JavaScriptAudition.objects.card(2)];
         
         JavaScriptAudition.actions.playCards(player1, player2);
         
@@ -151,7 +155,8 @@ describe("Audition JavaScript Tests", function() {
     it('Multiple cards reduce mana cost by total used', function(){
         player1.mana = 10;
         player1.active = true;
-        player1.cardsInPlay = [{value: 2}, {value: 3}];
+        player1.cardsInPlay = [JavaScriptAudition.objects.card(2), 
+                               JavaScriptAudition.objects.card(3)];
         
         JavaScriptAudition.actions.playCards(player1, player2);
         
@@ -161,7 +166,8 @@ describe("Audition JavaScript Tests", function() {
     it('Opponent health is reduced by card mana cost played', function(){
         player1.mana = 10;
         player1.active = true;
-        player1.cardsInPlay = [{value: 2}, {value: 3}];
+        player1.cardsInPlay = [JavaScriptAudition.objects.card(2), 
+                               JavaScriptAudition.objects.card(3)];
         
         JavaScriptAudition.actions.playCards(player1, player2);
         
@@ -171,12 +177,25 @@ describe("Audition JavaScript Tests", function() {
     it('Opponent loses if damage dealt is more than health remaining', function(){
         player1.mana = 10;
         player1.active = true;
-        player1.cardsInPlay = [{value: 2}, {value: 3}];
+        player1.cardsInPlay = [JavaScriptAudition.objects.card(2), 
+                               JavaScriptAudition.objects.card(3)];
         player2.health = 4;
         
         JavaScriptAudition.actions.playCards(player1, player2);
         
         expect(JavaScriptAudition.ruleChecks.playerLose(player2)).toEqual(true);
+    });
+
+    it('Opponent does not lose if health remains', function(){
+      player1.mana = 10;
+      player1.active = true;
+        player1.cardsInPlay = [JavaScriptAudition.objects.card(2), 
+                               JavaScriptAudition.objects.card(1)];
+      player2.health = 4;
+      
+      JavaScriptAudition.actions.playCards(player1, player2);
+      
+      expect(JavaScriptAudition.ruleChecks.playerLose(player2)).toEqual(false);
     });
 
   })
