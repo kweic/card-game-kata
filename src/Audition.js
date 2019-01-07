@@ -40,11 +40,8 @@ var JavaScriptAudition = {
     startTurn(player){
       player.active = true;
       player.mana += initValues.manaGainPerTurn;
-      if(player.mana > initValues.maxMana){
-        player.mana = initValues.maxMana;
-      }
-
-      if(player.deck.length == 0) player.health -= initValues.bleed;
+      JavaScriptAudition.ruleChecks.maxMana(player);
+      JavaScriptAudition.ruleChecks.bleedOut(player);
     },
     initialHandDraw(player){
       for(var i = 0; i < initValues.handSize; i++){
@@ -53,6 +50,22 @@ var JavaScriptAudition = {
     },
     drawRandomCard(player){
       player.hand.push(player.deck.splice(Math.floor(Math.random() * player.deck.length), 1));
+    }
+  },
+
+  ruleChecks: {
+    maxMana(player){
+      if(player.mana > initValues.maxMana){
+        player.mana = initValues.maxMana;
+      }
+    },
+    bleedOut(player){
+      if(player.deck.length == 0) player.health -= initValues.bleed;
+    },
+    hasPlayableCard(player){
+      if(player.hand.filter(function(card){ return card.value <= player.mana}).length == 0){
+        player.active = false;
+      }
     }
   }
   

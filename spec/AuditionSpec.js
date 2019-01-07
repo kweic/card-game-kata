@@ -89,8 +89,18 @@ describe("Audition JavaScript Tests", function() {
       });
 
       it('If no card is less than mana pool, lose turn', function() {
-        
+        JavaScriptAudition.actions.startTurn(player1);
+        player1.hand = [{value: 10}]
+        JavaScriptAudition.ruleChecks.hasPlayableCard(player1);
+        expect(player1.active).toBe(false);
       });
+
+      it('Test hasPlayableCard returns true when player has enough mana', function(){
+        JavaScriptAudition.actions.startTurn(player1);
+        player1.hand = [{value: 1}]
+        JavaScriptAudition.ruleChecks.hasPlayableCard(player1);
+        expect(player1.active).toBe(true);
+      })
 
       describe("If already holding 4 cards...", function() {
         it('next drawn card is thrown out', function() {
