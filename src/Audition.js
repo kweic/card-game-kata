@@ -58,9 +58,11 @@ var JavaScriptAudition = {
       var currentCost = JavaScriptAudition.util.sumCards(player.cardsInPlay) + card.value;
       return player.mana >= currentCost;
     },
-    playCards(player){
-      player.mana -= JavaScriptAudition.util.sumCards(player.cardsInPlay);
-      player.cardsInPlay = [];
+    playCards(activePlayer, opponent){
+      var attackValue = JavaScriptAudition.util.sumCards(activePlayer.cardsInPlay);
+      activePlayer.mana -= attackValue;
+      opponent.health -= attackValue;
+      activePlayer.cardsInPlay = [];
     }
   },
 

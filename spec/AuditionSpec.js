@@ -143,17 +143,29 @@ describe("Audition JavaScript Tests", function() {
         player1.active = true;
         player1.cardsInPlay = [{value: 2}];
         
-        JavaScriptAudition.actions.playCards(player1);
+        JavaScriptAudition.actions.playCards(player1, player2);
         
         expect(player1.mana).toEqual(8);
     });
 
     it('Multiple cards reduce mana cost by total used', function(){
+        player1.mana = 10;
+        player1.active = true;
+        player1.cardsInPlay = [{value: 2}, {value: 3}];
         
+        JavaScriptAudition.actions.playCards(player1, player2);
+        
+        expect(player1.mana).toEqual(5);
     });
 
     it('Opponent health is reduced by card mana cost played', function(){
+        player1.mana = 10;
+        player1.active = true;
+        player1.cardsInPlay = [{value: 2}, {value: 3}];
         
+        JavaScriptAudition.actions.playCards(player1, player2);
+        
+        expect(player2.health).toEqual(initValues.health - 5);
     });
 
     it('Opponent loses if damage dealt is more than health remaining', function(){
