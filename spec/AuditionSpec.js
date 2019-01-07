@@ -104,7 +104,12 @@ describe("Audition JavaScript Tests", function() {
 
       describe("If already holding 4 cards...", function() {
         it('next drawn card is thrown out', function() {
-          
+          JavaScriptAudition.actions.initialHandDraw(player1);
+          JavaScriptAudition.actions.drawRandomCard(player1);
+          const currentHand = player1.hand.slice();
+
+          JavaScriptAudition.actions.drawRandomCard(player1);
+          expect(currentHand).toEqual(player1.hand)
         });
 
         it('previous cards remain in hand', function() {

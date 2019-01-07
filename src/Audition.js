@@ -12,6 +12,7 @@ var initValues = {
   maxMana: 10,
 
   handSize: 3,
+  handMaxSize: 4,
   deck: [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8]
 }
 
@@ -49,7 +50,10 @@ var JavaScriptAudition = {
       }
     },
     drawRandomCard(player){
-      player.hand.push(player.deck.splice(Math.floor(Math.random() * player.deck.length), 1));
+      var card = player.deck.splice(Math.floor(Math.random() * player.deck.length), 1);
+      if(player.hand.length < initValues.handMaxSize){
+        player.hand.push(card);
+      }
     }
   },
 
