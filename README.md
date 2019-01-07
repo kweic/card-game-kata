@@ -1,4 +1,5 @@
 # Card Game Kata #
+Problem description here http://codingdojo.org/kata/TradingCardGame/
 
 * Test driven using Jasmine
 * Implemented requirements 
