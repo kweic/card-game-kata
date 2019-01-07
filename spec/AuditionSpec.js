@@ -75,11 +75,17 @@ describe("Audition JavaScript Tests", function() {
     describe("Draws Card", function() {
       
       it('Reduces player\'s deck size by 1', function() {
-        
+        JavaScriptAudition.actions.initialHandDraw(player1);
+        JavaScriptAudition.actions.drawRandomCard(player1);
+
+        expect(player1.deck.length).toEqual(initValues.deck.length - (initValues.handSize + 1));
       });
 
       it('Added to player\'s hand', function() {
-        
+        JavaScriptAudition.actions.initialHandDraw(player1);
+        JavaScriptAudition.actions.drawRandomCard(player1);
+
+        expect(player1.hand.length).toEqual(initValues.handSize + 1);
       });
 
       it('If no card is less than mana pool, lose turn', function() {

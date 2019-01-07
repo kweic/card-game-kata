@@ -48,11 +48,11 @@ var JavaScriptAudition = {
     },
     initialHandDraw(player){
       for(var i = 0; i < initValues.handSize; i++){
-        player.hand.push(JavaScriptAudition.actions.drawRandomCard(player.deck));
+        JavaScriptAudition.actions.drawRandomCard(player);
       }
     },
-    drawRandomCard(deck){
-      return deck.splice(Math.floor(Math.random() * deck.length), 1);
+    drawRandomCard(player){
+      player.hand.push(player.deck.splice(Math.floor(Math.random() * player.deck.length), 1));
     }
   }
   
