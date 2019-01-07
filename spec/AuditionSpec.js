@@ -1,43 +1,38 @@
 describe("Audition JavaScript Tests", function() {
-  // const initValues = {health: 30, mana: 0, handSize: 3, deckSize: 20};
+
+    beforeEach(function() {
+      JavaScriptAudition.init();
+    });
 
     describe("GAME INITIALIZATION", function() {
       it(`Players are given ${initValues.health} Health`, function() {
-        JavaScriptAudition.init();
-        expect(player1.health == 30).toBe(true);
-        expect(player2.health == 30).toBe(true);
+        expect(player1.health == initValues.health).toBe(true);
+        expect(player2.health == initValues.health).toBe(true);
       });
 
       it(`Players are given ${initValues.mana} Mana`, function() {
-        JavaScriptAudition.init();
-        expect(player1.mana == 0).toBe(true);
-        expect(player2.mana == 0).toBe(true);
+        expect(player1.mana == initValues.mana).toBe(true);
+        expect(player2.mana == initValues.mana).toBe(true);
       });
 
       it(`Player deck contains ${initValues.deck.length} Cards`, function() {
-        JavaScriptAudition.init();
         expect(player1.deck.length).toEqual(initValues.deck.length);
         expect(player1.deck.length).toEqual(initValues.deck.length);
       });
 
-      it(`Player deck contains the correct card values`, function() {
-        JavaScriptAudition.init();
-        const initialCards = [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8];
-
-        expect(player1.deck.map( function(card){ return card.value } )).toEqual(initialCards);
+      it(`Player deck contains the card values [${initValues.deck}]`, function() {
+        expect(player1.deck.map( function(card){ return card.value } )).toEqual(initValues.deck);
       });
 
       it(`Players are given ${initValues.handSize} Cards`, function() {
-        JavaScriptAudition.init();
         JavaScriptAudition.actions.initialHandDraw(player1);
         JavaScriptAudition.actions.initialHandDraw(player2);
 
-        expect(player1.hand.length).toEqual(3);
-        expect(player2.hand.length).toEqual(3);
+        expect(player1.hand.length).toEqual(initValues.handSize);
+        expect(player2.hand.length).toEqual(initValues.handSize);
       });
 
       it(`Player deck contains ${initValues.deck.length - initValues.handSize} Cards after draw`, function() {
-        JavaScriptAudition.init();
         JavaScriptAudition.actions.initialHandDraw(player1);
         JavaScriptAudition.actions.initialHandDraw(player2);
 
@@ -47,7 +42,7 @@ describe("Audition JavaScript Tests", function() {
     });
 
 
-describe("PLAYER ACTIONS", function() {
+  describe("PLAYER ACTIONS", function() {
     
     describe("Becomes Active", function() {
       it('Players gains 1 Mana', function() {
