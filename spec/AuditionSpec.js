@@ -139,7 +139,13 @@ describe("Audition JavaScript Tests", function() {
     });
 
     it('Card played reduces mana pool by card cost', function(){
-
+        player1.mana = 10;
+        player1.active = true;
+        player1.cardsInPlay = [{value: 2}];
+        
+        JavaScriptAudition.actions.playCards(player1);
+        
+        expect(player1.mana).toEqual(8);
     });
 
     it('Multiple cards reduce mana cost by total used', function(){

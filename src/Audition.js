@@ -55,10 +55,22 @@ var JavaScriptAudition = {
       }
     },
     canPlaceCard(player, card){
-      var currentCost = player.cardsInPlay.length > 0 ? player.cardsInPlay.reduce(function(a,b){return a.value + b.value}) : 0;
-      currentCost += card.value;
-      
+      var currentCost = JavaScriptAudition.util.sumCards(player.cardsInPlay) + card.value;
       return player.mana >= currentCost;
+    },
+    playCards(player){
+      player.mana -= JavaScriptAudition.util.sumCards(player.cardsInPlay);
+      player.cardsInPlay = [];
+    }
+  },
+
+  util: {
+    sumCards(cards){
+      var sum = 0;
+      for(var i = 0; i < cards.length; i++){
+        sum += cards[i].value;
+      }
+      return sum;
     }
   },
 
