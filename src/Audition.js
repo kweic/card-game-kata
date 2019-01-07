@@ -32,9 +32,9 @@ var JavaScriptAudition = {
   },
 
   actions: {
-    takeTurn(player){
+    startTurn(player){
       player.active = true;
-      player.mana++;
+      if(player.mana < 10) player.mana++;
     },
     initialHandDraw(player){
       for(var i = 0; i < initValues.handSize; i++){

@@ -47,12 +47,16 @@ describe("Audition JavaScript Tests", function() {
     describe("Becomes Active", function() {
       it('Player gains 1 Mana', function() {
         JavaScriptAudition.actions.initialHandDraw(player1);
-        JavaScriptAudition.actions.takeTurn(player1);
+        JavaScriptAudition.actions.startTurn(player1);
         expect(player1.mana).toEqual(1);
       });
 
       it('Player does not gain more than 10 Mana', function() {
-        
+        JavaScriptAudition.actions.initialHandDraw(player1);
+        for(var i = 0; i < 15; i++){
+          JavaScriptAudition.actions.startTurn(player1);
+        }
+        expect(player1.mana).toEqual(10);
       });
 
       it('Player Bleeds Out (1 damage) if no cards remain in deck', function() {
